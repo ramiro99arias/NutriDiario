@@ -1,6 +1,6 @@
 # NutriDiario
 
-Trabajo Práctico N.º 2 - Programación Web. Ramiro Arias y Clara Gariglio.
+Trabajo Práctico N.º 2 - Programación Web. Ramiro Arias y Clarisa Gariglio.
 
 Aplicación sencilla para estimar calorías y macronutrientes diarios. Permite
 registrarse, ingresar, guardar cálculos y consultar alimentos en Open Food Facts.
