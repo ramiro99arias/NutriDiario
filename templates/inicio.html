@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<section class="portada">
+  <div>
+    <p class="etiqueta">NUTRICIÓN, PASO A PASO</p>
+    <h1>Conocé tus números.<br><span>Encontrá tu equilibrio.</span></h1>
+    <p class="bajada">Una forma simple de estimar tus calorías y macronutrientes diarios según tus datos, tu actividad y tu objetivo.</p>
+    <a class="boton" href="{{ url_for('calculadora') }}">Calcular mis necesidades <span aria-hidden="true">→</span></a>
+    <p class="muted">Sin cuenta para calcular. Con cuenta para guardar.</p>
+  </div>
+  <aside class="vista" aria-label="Qué vas a obtener">
+    <p class="etiqueta">TU DÍA, EN EQUILIBRIO</p>
+    <div class="plato" aria-hidden="true"><div><span>Tu objetivo</span><strong>Tu punto<br>de partida</strong></div></div>
+    <div class="leyenda"><span><i class="punto verde"></i>Proteínas</span><span><i class="punto naranja"></i>Carbohidratos</span><span><i class="punto dorado"></i>Grasas</span></div>
+    <p class="muted">Una estimación diaria. Tres macronutrientes.</p>
+  </aside>
+</section>
+<section class="pasos" aria-label="Cómo empezar">
+  <article><span class="numero">01</span><h2>Contanos sobre vos</h2><p>Ingresá tus medidas y tu nivel de actividad.</p></article>
+  <article><span class="numero">02</span><h2>Elegí tu objetivo</h2><p>Bajar, mantener o subir de peso.</p></article>
+  <article><span class="numero">03</span><h2>Consultá tu estimación</h2><p>Calorías y gramos diarios, en un solo lugar.</p></article>
+</section>
+<p class="nota">Para adultos sanos de 18 a 78 años. Es una herramienta orientativa: no reemplaza una consulta nutricional ni contempla embarazo, lactancia o condiciones médicas.</p>
+{% endblock %}

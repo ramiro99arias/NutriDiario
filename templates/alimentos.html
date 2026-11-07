@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<div class="encabezado"><p class="etiqueta">CONOCÉ LO QUE COMÉS</p><h1>Explorá tus alimentos</h1><p>Consultá la información nutricional de un producto envasado.</p></div>
+<div class="dos-columnas">
+<section class="tarjeta"><h2>Buscá por código de barras</h2><p>Escribí los números que aparecen debajo del código del envase.</p>
+<form method="post" class="formulario"><input type="hidden" name="csrf" value="{{ session.csrf }}"><label for="codigo">Código de barras</label><input id="codigo" name="codigo" inputmode="numeric" pattern="[0-9]{8,14}" minlength="8" maxlength="14" required value="{{ codigo }}" placeholder="Ej. 3017620422003"><small>Entre 8 y 14 dígitos. Ejemplo: 3017620422003.</small><p class="error error-cliente" role="alert"></p><button class="boton" type="submit">Consultar alimento →</button></form>
+<p class="muted">Datos de <a href="https://world.openfoodfacts.org/">Open Food Facts</a>, bajo licencia <a href="https://opendatacommons.org/licenses/odbl/1-0/">ODbL</a>. La información puede estar incompleta: verificá siempre la etiqueta del envase.</p></section>
+<section class="tarjeta resultado" aria-live="polite">
+{% if error %}<p class="error" role="alert">{{ error }}</p>{% elif producto %}<p class="etiqueta">POR CADA 100 G / 100 ML</p><h2>{{ producto.nombre }}</h2>
+{% for clave, etiqueta, unidad in [('calorias','Energía','kcal'),('proteinas','Proteínas','g'),('carbohidratos','Carbohidratos','g'),('grasas','Grasas','g')] %}<div class="macro"><span>{{ etiqueta }}</span><strong>{% if producto[clave] is not none %}{{ producto[clave] }} {{ unidad }}{% else %}Sin dato{% endif %}</strong></div>{% endfor %}
+{% else %}<div class="espera"><h2>Del envase a los números</h2><p>El resultado aparecerá acá después de consultar un código.</p></div>{% endif %}
+</section></div>
+{% endblock %}

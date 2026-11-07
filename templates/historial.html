@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<div class="encabezado"><p class="etiqueta">TU RECORRIDO</p><h1>Mis cálculos</h1><p>Hola, {{ session.nombre }}. Estas son tus estimaciones guardadas.</p></div>
+<div class="acciones"><a class="boton" href="{{ url_for('calculadora') }}">Nuevo cálculo →</a><a href="{{ tablero_url }}" target="_blank" rel="noopener">Abrir tablero de datos ↗</a></div>
+<section class="tarjeta">
+{% if calculos %}
+<div class="tabla"><table><caption>Estimaciones por fecha (UTC)</caption><thead><tr><th scope="col">Fecha</th><th scope="col">Objetivo</th><th scope="col">Peso</th><th scope="col">kcal/día</th><th scope="col">Proteínas</th><th scope="col">Carbohidratos</th><th scope="col">Grasas</th><th scope="col">Detalle</th></tr></thead><tbody>
+{% for c in calculos %}<tr><td>{{ c.fecha }}</td><td>{{ objetivos[c.objetivo][0] }}</td><td>{{ c.peso }} kg</td><td>{{ c.calorias }}</td><td>{{ c.proteinas }} g</td><td>{{ c.carbohidratos }} g</td><td>{{ c.grasas }} g</td><td><a href="{{ url_for('resultado_guardado', calculo_id=c.id) }}">Ver</a></td></tr>{% endfor %}
+</tbody></table></div>
+<button class="enlace" id="ver-json" type="button">Ver mis datos en JSON</button><pre id="datos-json" hidden></pre>
+{% else %}<h2>Todavía no hay cálculos</h2><p>Hacé tu primera estimación para empezar tu historial.</p>{% endif %}
+</section>
+{% endblock %}

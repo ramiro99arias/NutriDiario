@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<article class="tarjeta lectura"><p class="etiqueta">SIN NÚMEROS MISTERIOSOS</p><h1>Cómo se calcula</h1>
+<h2>1. Energía en reposo</h2><p>Usamos la ecuación simplificada de Mifflin-St Jeor. Estima la energía en reposo a partir del peso en kg, la altura en cm y la edad en años.</p><p class="formula">10 × peso + 6,25 × altura − 5 × edad + ajuste</p><p>El ajuste es +5 para el sexo masculino y −161 para el femenino. Son las dos categorías de la ecuación original; no representan la identidad de género.</p>
+<h2>2. Actividad y objetivo</h2><p>Multiplicamos por un factor de actividad: 1,2 (sedentaria), 1,375 (ligera), 1,55 (moderada) o 1,725 (alta). Después aplicamos un ajuste sencillo del proyecto: −10% para bajar de peso, sin cambio para mantener o +10% para subir. Estos factores y ajustes son aproximaciones, no indicaciones clínicas.</p>
+<h2>3. Reparto de macronutrientes</h2><p>Distribuimos la energía en 20% de proteínas, 50% de carbohidratos y 30% de grasas. Convertimos a gramos usando 4 kcal por gramo de proteínas o carbohidratos, y 9 kcal por gramo de grasas. Es una elección fija del proyecto dentro de los rangos de referencia para adultos, no un reparto personalizado para deportistas.</p>
+<h2>Alcance</h2><p>La calculadora se limita a adultos sanos de 18 a 78 años. No contempla embarazo, lactancia, enfermedades, tratamientos ni necesidades deportivas específicas. Una estimación puede diferir de las necesidades reales; un profesional puede ajustarla según cada caso.</p>
+<h2>Fuentes</h2><ul><li><a href="https://pubmed.ncbi.nlm.nih.gov/2305711/">Mifflin y colaboradores (1990): ecuación de energía en reposo.</a></li><li><a href="https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/dietary-reference-intakes/tables/reference-values-macronutrients.html">Health Canada: rangos de referencia de macronutrientes.</a></li><li><a href="https://openfoodfacts.github.io/openfoodfacts-server/api/">Open Food Facts: documentación del servicio de alimentos.</a></li></ul>
+</article>
+{% endblock %}

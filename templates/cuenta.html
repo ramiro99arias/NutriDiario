@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<section class="cuenta tarjeta">
+  <p class="etiqueta">TU ESPACIO PERSONAL</p>
+  <h1>{{ 'Creá tu cuenta' if registro else 'Qué bueno verte' }}</h1>
+  <p>{{ 'Guardá tus estimaciones y consultalas cuando quieras.' if registro else 'Ingresá para consultar y guardar tus cálculos.' }}</p>
+  {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+  <form method="post" class="formulario">
+    <input type="hidden" name="csrf" value="{{ session.csrf }}">
+    {% if registro %}<label for="nombre">Nombre</label><input id="nombre" name="nombre" autocomplete="name" minlength="2" maxlength="60" required value="{{ request.form.get('nombre', '') }}">{% endif %}
+    <label for="email">Correo electrónico</label><input type="email" id="email" name="email" autocomplete="email" required maxlength="120" value="{{ request.form.get('email', '') }}">
+    <label for="clave">Contraseña</label><input type="password" id="clave" name="clave" autocomplete="{{ 'new-password' if registro else 'current-password' }}" {% if registro %}minlength="8"{% endif %} maxlength="128" required>
+    {% if registro %}<small>Usá entre 8 y 128 caracteres.</small>{% endif %}
+    <p class="error error-cliente" role="alert"></p>
+    <button type="submit" class="boton">{{ 'Crear cuenta' if registro else 'Ingresar' }} <span aria-hidden="true">→</span></button>
+  </form>
+  <p>{% if registro %}¿Ya tenés cuenta? <a href="{{ url_for('ingresar') }}">Ingresá</a>{% else %}¿Primera vez? <a href="{{ url_for('registro') }}">Creá tu cuenta</a>{% endif %}</p>
+</section>
+{% endblock %}

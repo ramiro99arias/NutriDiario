@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<div class="encabezado"><p class="etiqueta">UN OBJETIVO, UN PUNTO DE PARTIDA</p><h1>Tu calculadora diaria</h1><p>Completá tus datos para estimar la energía que necesitás.</p></div>
+<div class="dos-columnas">
+<section class="tarjeta">
+  <h2>Sobre vos</h2>
+  {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+  <form method="post" action="{{ url_for('calculadora') }}" class="formulario" id="form-calculo">
+    <input type="hidden" name="csrf" value="{{ session.csrf }}">
+    <div class="campos">
+      <div><label for="edad">Edad (años)</label><input id="edad" name="edad" type="number" min="18" max="78" step="1" required value="{{ datos.get('edad', '') }}"></div>
+      <div><label for="sexo">Sexo para la fórmula</label><select id="sexo" name="sexo" required><option value="">Seleccionar</option>{% for valor, texto in [('femenino','Femenino'),('masculino','Masculino')] %}<option value="{{ valor }}" {% if datos.get('sexo') == valor %}selected{% endif %}>{{ texto }}</option>{% endfor %}</select></div>
+      <div><label for="altura">Altura (cm)</label><input id="altura" name="altura" type="number" min="120" max="230" step="0.1" required placeholder="Ej. 170" value="{{ datos.get('altura', '') }}"></div>
+      <div><label for="peso">Peso (kg)</label><input id="peso" name="peso" type="number" min="35" max="250" step="0.1" required placeholder="Ej. 70" value="{{ datos.get('peso', '') }}"></div>
+    </div>
+    <label for="actividad">¿Cuánto te movés?</label><select id="actividad" name="actividad" required><option value="">Seleccionar actividad</option>{% for valor, detalle in actividades.items() %}<option value="{{ valor }}" {% if datos.get('actividad') == valor %}selected{% endif %}>{{ detalle[0] }}</option>{% endfor %}</select>
+    <label for="objetivo">¿Cuál es tu objetivo?</label><select id="objetivo" name="objetivo" required><option value="">Seleccionar objetivo</option>{% for valor, detalle in objetivos.items() %}<option value="{{ valor }}" {% if datos.get('objetivo') == valor %}selected{% endif %}>{{ detalle[0] }}</option>{% endfor %}</select>
+    <p class="error error-cliente" role="alert"></p>
+    <button class="boton" type="submit">Calcular mi estimación <span aria-hidden="true">→</span></button>
+    <small>{{ 'El resultado se guarda en tu historial.' if session.get('usuario_id') else 'Podés calcular sin registrarte. Ingresá antes de calcular para guardar el resultado.' }}</small>
+  </form>
+</section>
+<section class="tarjeta resultado" aria-live="polite" id="resultado">
+  <p class="etiqueta">TU ESTIMACIÓN DIARIA</p>
+  {% if resultado %}
+  <h2 class="energia">{{ resultado.calorias }} <span>kcal / día</span></h2>
+  <p>{{ objetivos[datos.get('objetivo')][0] }}</p>
+  <div class="macro"><i class="punto verde"></i><span>Proteínas <small>20% de la energía</small></span><strong>{{ resultado.proteinas }} g</strong></div>
+  <div class="macro"><i class="punto naranja"></i><span>Carbohidratos <small>50% de la energía</small></span><strong>{{ resultado.carbohidratos }} g</strong></div>
+  <div class="macro"><i class="punto dorado"></i><span>Grasas <small>30% de la energía</small></span><strong>{{ resultado.grasas }} g</strong></div>
+  {% if guardado %}<p class="aviso">Guardado en <a href="{{ url_for('historial') }}">Mis cálculos</a>.</p>{% endif %}
+  <p class="muted">Los gramos se redondean a un decimal. Los porcentajes son un reparto fijo orientativo.</p>
+  {% else %}<div class="espera"><span class="simbolo" aria-hidden="true">n.</span><h2>Tus números empiezan acá</h2><p>Completá el formulario. Acá vas a ver tus calorías y macronutrientes.</p></div>{% endif %}
+  <a href="{{ url_for('como_funciona') }}">Conocé el método de cálculo ↗</a>
+</section>
+</div>
+<p class="nota">Estimación para adultos sanos de 18 a 78 años. No es una dieta ni una prescripción. No contempla embarazo, lactancia o condiciones médicas; consultá a un profesional para una indicación personal.</p>
+{% endblock %}
